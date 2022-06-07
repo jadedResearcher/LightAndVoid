@@ -1,0 +1,101 @@
+<html>
+
+<head>
+  <title>Unified Theory</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" href="alt.ico" />
+  <script src="light.js"></script>
+  <script src="void.js"></script>
+  <script src="dearwitherby.js"></script>
+
+  <script>
+
+    initBlorbos = (blorbos) => {
+      const sources = {
+        solemn: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/thesolemn.png',
+        twin2: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/thetwins2.png',
+        _: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/_.png',
+        twin1: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/thetwins1.png',
+        reflection: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/thereflection.png',
+        match: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/thematch.png',
+        shot: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/theshot.png',
+        end: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/theend.png',
+        k: 'http://farragofiction.com/TwoGayJokes/Stories/MurderGameIcons/k.png', //doesn't deserve a title, bastard man
+      }
+      const ele = document.querySelector("#cast");
+      if (!ele) {
+        console.error("JR NOTE: cannot find cast section. Did you REALLY mean to call this?");
+        return;
+      }
+
+      for (let blorbo of blorbos) {
+        const img = document.createElement("img");
+        img.className = "blorbo";
+        img.src = sources[blorbo];
+        ele.append(img);
+      }
+      //stress test
+      /*
+      for(let source of Object.values(sources)){
+        const img = document.createElement("img");
+        img.className = "blorbo";
+        img.src = source;
+        ele.append(img);
+      }*/
+    }
+
+    function getParameterByName(name, url) {
+
+      if (!url) {
+        url = window.location.href;
+      }
+      name = name.replace(/[[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    window.onload = () => {
+      initBlorbos(["twin1", "twin2", "solemn"])
+    }
+
+    window.onclick = () => {
+      document.querySelector("#muzak").play();
+      document.querySelector("#story").style.display = "block";
+      document.querySelector("#euphoria").style.display = "none";
+      if (getParameterByName("seerOfVoid", null)) {
+        //looking underneath is actually not the point this time.
+        document.querySelector("#story").innerHTML = light;
+      }else if (getParameterByName("dearWitherby", null)){
+        //romance
+        document.querySelector("#story").innerHTML = dearwitherby;
+      }else{
+        //relevance is found through careful application of void
+        document.querySelector("#story").innerHTML = voided;
+      }
+    }
+  </script>
+</head>
+
+
+<body>
+
+  <audio id="muzak">
+    <source src="http://farragofiction.com/CodexOfRuin/MallMusicMuzakMallOf1974/Mall%20Music%20Muzak%20-%20Mall%20Of%201974%20-%2012%20Impulse%20Purchase%20(Part%202).mp3" type="audio/mpeg">
+    If you're reading this, audio isn't supported.
+  </audio>
+
+  <div id="container">
+    <button id="euphoria">Click To Experience Romance</button>
+
+    <div id="story">
+    </div>
+
+  </div>
+
+  <div id="cast"></div>
+</body>
+
+</html>
